@@ -24,25 +24,35 @@
       --bg-1:#050403; --bg-2:#0b0907; --panel:#0b0a08; --panel-2:#15120f;
       --accent:#e3a85a; --accent-soft:#f3c679; --muted:#9b7f53;
       --line:rgba(227,168,90,0.10);
-      --shadow: rgba(0,0,0,0.28);
+      --shadow-wrap: rgba(0,0,0,0.18);
+      --shadow-card: rgba(0,0,0,0.06);
       --accent-glow: rgba(227,168,90,0.06);
       --maxw:1100px;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--accent-soft);font-family:'Rubik',system-ui,-apple-system,'Segoe UI',sans-serif}
     .stage{min-height:100vh;padding:32px 28px;display:flex;align-items:flex-start;justify-content:center}
-    .wrap{width:100%;max-width:var(--maxw);min-height:calc(100vh - 96px);background:linear-gradient(180deg, rgba(255,255,255,0.016), rgba(0,0,0,0.02));border-radius:12px;padding:28px;border:1px solid var(--line);box-shadow:0 10px 30px var(--shadow);display:flex;flex-direction:column;gap:18px}
+
+    /* Single subtle surface color to avoid horizontal banding — no strong inner gradients */
+    .wrap{width:100%;max-width:var(--maxw);min-height:calc(100vh - 96px);background:rgba(255,255,255,0.012);border-radius:12px;padding:28px;border:1px solid var(--line);box-shadow:0 6px 20px var(--shadow-wrap);display:flex;flex-direction:column;gap:18px}
+
     .titlebar{background:linear-gradient(180deg,var(--panel),var(--panel-2));padding:14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:6px}
     .crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
-    .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.08)}
+    .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.06)}
+
     nav{display:flex;gap:12px;margin-top:6px}
     nav a{display:inline-block;font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;padding:8px 10px;border-radius:6px;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
     nav a:hover{background:rgba(255,255,255,0.02);box-shadow:0 6px 12px var(--accent-glow);transform:translateY(-2px)}
+    nav a:focus{outline:none;box-shadow:0 0 0 4px rgba(227,168,90,0.06)}
+
     main{display:flex;flex:1;gap:18px}
     .leftcol{flex:1;display:flex;flex-direction:column;gap:18px}
     .rightcol{width:340px;min-width:260px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.02));border-radius:10px;padding:20px;min-height:50vh;border:1px solid rgba(255,255,255,0.015);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 18px rgba(0,0,0,0.18)}
+
+    /* Cards: remove outer drop shadows so they fit their containers cleanly; use a subtle inset for depth */
+    .card{background:rgba(255,255,255,0.012);border-radius:10px;padding:20px;min-height:40vh;border:1px solid rgba(255,255,255,0.015);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
     .card.empty{display:flex;align-items:center;justify-content:center;color:rgba(227,168,90,0.06);font-family:'Oswald',sans-serif;font-size:16px;text-transform:uppercase;letter-spacing:0.12em}
+
     footer{margin-top:6px;color:var(--muted);font-size:13px}
     @media (max-width:980px){.rightcol{display:none}.wrap{padding:18px}.card{min-height:50vh}}
   </style>
@@ -51,7 +61,7 @@
   <div class="stage">
     <div class="wrap">
       <div class="titlebar">
-        <div class="crumbs">S.T.A.L.K.E.R. BEYOND WIKI / HOME / FAQ</div>
+        <div class="crumbs">S.T.A.L.K.E.R. BEYOND WIKI / THE PAGE</div>
         <h1>FAQ</h1>
       </div>
 
