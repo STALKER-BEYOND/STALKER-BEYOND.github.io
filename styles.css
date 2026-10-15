@@ -361,6 +361,8 @@ footer.pda-bottom{
 
 @media (max-width:720px){
   .home-cine{min-height:460px}
+  .trailer-dialog{width:100vw;max-height:100dvh;margin:auto 0}
+  .trailer-frame{border-left:0;border-right:0}
   .cine-content{flex-direction:column;align-items:flex-start;gap:16px;padding:24px 16px}
   .pda-screen .home-cine img.home-logo{width:84px;height:84px}
   .home-intro h2{font-size:30px;line-height:36px}
