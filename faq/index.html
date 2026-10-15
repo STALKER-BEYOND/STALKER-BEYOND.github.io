@@ -10,11 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    :root{ --bg-1:#060605; --bg-2:#0d0b07; --panel:#0b0a08; --panel-2:#15120f; --accent:#e3a85a; --accent-soft:#f3c679; --muted:#a0865a; --line:rgba(227,168,90,0.12); --shadow:rgba(0,0,0,0.5); --maxw:980px; }
+    :root{ --bg-1:#060605; --bg-2:#0d0b07; --panel:#0b0a08; --panel-2:#15120f; --accent:#e3a85a; --accent-soft:#f3c679; --muted:#9b7f53; --line:rgba(227,168,90,0.12); --shadow:rgba(0,0,0,0.5); --maxw:980px; }
     *{box-sizing:border-box} html,body{height:100%;margin:0}
     body{font-family:'Rubik', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;background: radial-gradient(circle at top left, rgba(134,95,52,0.08), transparent 18%), linear-gradient(180deg, var(--bg-1), var(--bg-2));color:var(--accent-soft);padding:24px;line-height:1.45}
     .wrap{max-width:var(--maxw);margin:0 auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));border-radius:10px;padding:14px;border:1px solid var(--line);box-shadow:0 10px 40px var(--shadow)}
-    .titlebar{background:linear-gradient(180deg,var(--panel),var(--panel-2));padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:flex;align-items:center}
+    .titlebar{background:linear-gradient(180deg,var(--panel),var(--panel-2));padding:12px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:6px}
+    .crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
     .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:20px;text-shadow:0 0 8px rgba(227,168,90,0.12)}
     nav{display:flex;gap:10px;margin-top:12px}
     nav a{font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;padding:6px 8px;border-radius:6px;font-weight:600;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
@@ -32,6 +33,7 @@
 <body>
   <div class="wrap">
     <div class="titlebar">
+      <div class="crumbs">S.T.A.L.K.E.R. BEYOND WIKI / HOME / FAQ</div>
       <h1>FAQ</h1>
     </div>
 

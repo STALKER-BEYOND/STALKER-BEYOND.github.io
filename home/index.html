@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    :root{ --bg-1:#060605; --bg-2:#0d0b07; --panel:#0b0a08; --panel-2:#15120f; --accent:#e3a85a; --accent-soft:#f3c679; --muted:#a0865a; --line:rgba(227,168,90,0.12); --shadow:rgba(0,0,0,0.5); --maxw:980px; }
+    :root{ --bg-1:#060605; --bg-2:#0d0b07; --panel:#0b0a08; --panel-2:#15120f; --accent:#e3a85a; --accent-soft:#f3c679; --muted:#9b7f53; --line:rgba(227,168,90,0.12); --shadow:rgba(0,0,0,0.5); --maxw:980px; }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
     body{
@@ -22,7 +22,8 @@
 
     .wrap{max-width:var(--maxw);margin:0 auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));border-radius:10px;padding:14px;border:1px solid var(--line);box-shadow:0 10px 40px var(--shadow);}
 
-    .titlebar{background:linear-gradient(180deg,var(--panel),var(--panel-2));padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:flex;align-items:center}
+    .titlebar{background:linear-gradient(180deg,var(--panel),var(--panel-2));padding:12px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:6px}
+    .crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
     .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 8px rgba(227,168,90,0.12)}
 
     nav{display:flex;gap:10px;margin-top:12px}
@@ -34,7 +35,6 @@
     .card h2{font-family:'Oswald',sans-serif;margin:0 0 8px 0;color:var(--accent-soft);letter-spacing:0.08em;text-transform:uppercase}
     .card p{margin:0;color:var(--muted)}
 
-    /* consistent small footer */
     footer{margin-top:18px;color:var(--muted);font-size:12px}
 
     @media (max-width:600px){body{padding:12px}.wrap{padding:12px}.titlebar h1{font-size:18px}}
@@ -43,7 +43,8 @@
 <body>
   <div class="wrap">
     <div class="titlebar">
-      <h1>S.T.A.L.K.E.R. BEYOND WIKI</h1>
+      <div class="crumbs">S.T.A.L.K.E.R. BEYOND WIKI / HOME</div>
+      <h1>Home</h1>
     </div>
 
     <nav aria-label="Main navigation">
@@ -57,7 +58,7 @@
     <main>
       <section class="card">
         <h2>Welcome</h2>
-        <p>This is the canonical home page for the Stalker Beyond wiki. The site uses a STALKER 2 PDA-inspired aesthetic (Oswald headings, Rubik body text) and consistent header styling across all pages. Edit the page content by updating files in the repository.</p>
+        <p>This is the canonical home page for the Stalker Beyond wiki. The site uses a STALKER 2 PDA-inspired aesthetic (Oswald headings, Rubik body text) and consistent header styling across pages. Edit the page content by updating files in the repository.</p>
       </section>
     </main>
 
