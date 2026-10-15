@@ -97,11 +97,12 @@
       if(!dlg||!btn||!dlg.showModal){if(btn)btn.addEventListener('click',function(){location.href='../assets/video/trailer.mp4';});return;}
       var v=dlg.querySelector('video');
       var phone=window.matchMedia&&window.matchMedia('(max-width: 720px), (pointer: coarse)').matches;
-      // phones: go fullscreen and turn sideways (Android), or hand off to the native player (iOS), so the trailer fills the screen
-      function full(){if(v.requestFullscreen){v.requestFullscreen().then(function(){if(screen.orientation&&screen.orientation.lock)return screen.orientation.lock('landscape');}).catch(function(){});}else if(v.webkitEnterFullscreen){v.webkitEnterFullscreen();}}
+      // phones: fullscreen the whole PDA player (bar + Close stay visible) and turn it sideways where the browser allows
+      var frame=dlg.querySelector('.trailer-frame');
+      function full(){if(frame.requestFullscreen){frame.requestFullscreen().then(function(){if(screen.orientation&&screen.orientation.lock)return screen.orientation.lock('landscape');}).catch(function(){});}}
       btn.addEventListener('click',function(){dlg.showModal();bg.pause();if(phone)full();var p=v.play();if(p&&p.catch)p.catch(function(){});});
       document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&phone&&dlg.open){if(screen.orientation&&screen.orientation.unlock)screen.orientation.unlock();dlg.close();}});
-      v.addEventListener('webkitendfullscreen',function(){if(dlg.open)dlg.close();});
+      dlg.addEventListener('close',function(){if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(function(){});});
       dlg.querySelector('.trailer-close').addEventListener('click',function(){dlg.close();});
       dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
       dlg.addEventListener('close',function(){v.pause();if(!still){var p=bg.play();if(p&&p.catch)p.catch(function(){});}btn.focus();});
