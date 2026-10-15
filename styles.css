@@ -53,8 +53,9 @@ a{color:inherit}
    - all items are regular nav links (including APPLY NOW)
    - uppercase, letter-only light-up + tiny pop on hover
    - centered short underline/light bar appears under hovered/active item and matches PDA strip aesthetic
+   - separators (//) removed per request; nav is no-wrap and horizontally scrolls on narrow screens so all items are reachable
 */
-nav{display:flex;gap:18px;margin-top:6px;flex-wrap:wrap;align-items:center}
+nav{display:flex;gap:18px;margin-top:6px;flex-wrap:nowrap;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch}
 nav a, nav a:link, nav a:visited {
   display:inline-block;
   position:relative;
@@ -73,15 +74,11 @@ nav a, nav a:link, nav a:visited {
   cursor:pointer;
 }
 
-/* separators after each item except the last */
-nav a:not(:last-child)::after{
-  content:"//";
-  color:rgba(227,168,90,0.10);
-  margin-left:10px;
-  font-weight:700;
-  letter-spacing:0.06em;
-  font-size:12px;
-}
+/* hide native scrollbar when possible and keep a small touch-friendly grab area */
+nav::-webkit-scrollbar{height:6px}
+nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.02);border-radius:4px}
+nav{-ms-overflow-style:none;scrollbar-width:none}
+nav::-webkit-scrollbar{display:block}
 
 /* LETTER-ONLY light-up + tiny pop on hover/focus */
 nav a:hover,
@@ -126,10 +123,6 @@ main{display:block;flex:1;gap:18px}
   box-shadow:none;
   padding:0;
 }
-
-.meta-links{display:flex;gap:18px;flex-wrap:wrap;padding:18px 0 20px}
-.meta-links a{font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;font-size:14px;letter-spacing:0.02em}
-.meta-links a:hover{color:var(--accent-soft)}
 
 .page-title{font-family:'Oswald',sans-serif;color:var(--accent-soft);font-weight:700;font-size:18px;letter-spacing:0.08em;text-transform:uppercase;padding-top:4px}
 .page-title strong{color:var(--accent)}
