@@ -48,15 +48,19 @@ nav::-webkit-scrollbar{display:none}
 nav a:first-child{margin-left:auto}
 nav a:last-child{margin-right:auto}
 
-/* Tab geometry follows the reference at 1:1 (cap height 12px):
-   bar = label box + 5px each side, 2px tall; bloom = bar + 14px each side, 16px tall;
-   dim 1px extension = bar + 13px each side; baseline sits ~20px above the bar. */
+/* Tab geometry follows the reference at 1:1 (cap height 12px). Every tab is the same width and
+   carries the same highlight, so nothing changes size between pages or while fonts load:
+   bar 2px tall; bloom = bar + 14px each side, 16px tall; dim 1px extension = bar + 13px each side;
+   baseline sits ~20px above the bar. */
 nav a{
-  --tab-pad:30px;
+  --tab-w:120px;
+  --bar-w:46px;
   position:relative;
   z-index:1;
   flex:0 0 auto;
-  padding:22px var(--tab-pad) 21px;
+  width:var(--tab-w);
+  padding:22px 0 21px;
+  text-align:center;
   font-family:'Oswald',sans-serif;
   font-weight:600;
   font-size:15px;
@@ -73,8 +77,8 @@ nav a{
 nav a::before{
   content:"";
   position:absolute;
-  left:calc(var(--tab-pad) - 19px);
-  right:calc(var(--tab-pad) - 19px);
+  left:calc(50% - var(--bar-w) / 2 - 14px);
+  width:calc(var(--bar-w) + 28px);
   bottom:2px;
   height:16px;
   background:radial-gradient(ellipse 50% 100% at 50% 100%,
@@ -102,8 +106,8 @@ nav a::before{
 nav a::after{
   content:"";
   position:absolute;
-  left:calc(var(--tab-pad) - 5px);
-  right:calc(var(--tab-pad) - 5px);
+  left:calc(50% - var(--bar-w) / 2);
+  width:var(--bar-w);
   bottom:0;
   height:2px;
   background:var(--pda-bar);
@@ -115,7 +119,7 @@ nav a::after{
 
 nav a.active{
   color:var(--pda-text);
-  background:linear-gradient(var(--pda-bar-ext),var(--pda-bar-ext)) 50% 100% / calc(100% - 2 * (var(--tab-pad) - 18px)) 1px no-repeat;
+  background:linear-gradient(var(--pda-bar-ext),var(--pda-bar-ext)) 50% 100% / calc(var(--bar-w) + 26px) 1px no-repeat;
 }
 nav a.active::before,
 nav a.active::after{opacity:1}
@@ -147,7 +151,7 @@ main.pda-screen{
 }
 
 .titlebar{display:flex;flex-direction:column;gap:6px;padding-bottom:14px;margin-bottom:24px;border-bottom:1px solid var(--pda-edge)}
-.crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
+.crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;line-height:16px;letter-spacing:0.08em;text-transform:uppercase}
 .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:26px;line-height:1.1;text-shadow:0 0 6px rgba(227,168,90,0.12)}
 
 .leftcol,.rightcol{display:none}
@@ -179,7 +183,7 @@ footer.pda-bottom{
 @media (max-width:720px){
   :root{--gutter:16px}
   nav{padding:0;-webkit-mask-image:linear-gradient(to right,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(to right,transparent,#000 18px,#000 calc(100% - 18px),transparent)}
-  nav a{--tab-pad:22px}
+  nav a{--tab-w:104px}
   .titlebar h1{font-size:22px}
 }
 
