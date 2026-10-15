@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Stalker Beyond Wiki — Home</title>
   <meta name="description" content="Stalker Beyond — rules, lore, and community documentation.">
-  <!-- Social / Preview meta -->
+  <!-- Social: Oswald & Rubik -->
   <meta property="og:site_name" content="STALKER BEYOND">
   <meta property="og:title" content="STALKER BEYOND WIKI — HOME">
   <meta property="og:description" content="Stalker Beyond — rules, lore, and community documentation.">
@@ -15,7 +15,6 @@
   <meta name="twitter:title" content="STALKER BEYOND WIKI — HOME">
   <meta name="twitter:description" content="Stalker Beyond — rules, lore, and community documentation.">
   <meta name="version" content="V0.1">
-  <!-- Fonts: Oswald for headings, Rubik for body (matches STALKER 2 UI) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -24,47 +23,34 @@
       --bg-1:#050403; --bg-2:#0b0907; --panel:#0b0a08; --panel-2:#15120f;
       --accent:#e3a85a; --accent-soft:#f3c679; --muted:#9b7f53;
       --line:rgba(227,168,90,0.10);
-      --shadow: rgba(0,0,0,0.28);
+      --shadow-wrap: rgba(0,0,0,0.18);
+      --shadow-card: rgba(0,0,0,0.06);
       --accent-glow: rgba(227,168,90,0.06);
       --maxw:1100px;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--accent-soft);font-family:'Rubik',system-ui,-apple-system,'Segoe UI',sans-serif}
 
-    /* Make the main panel take most of the viewport so the site feels like a PDA screen */
     .stage{min-height:100vh;padding:32px 28px;display:flex;align-items:flex-start;justify-content:center}
 
-    .wrap{width:100%;max-width:var(--maxw);min-height:calc(100vh - 96px); /* leave room for padding */
-      background:linear-gradient(180deg, rgba(255,255,255,0.016), rgba(0,0,0,0.02));
-      border-radius:12px;padding:28px;border:1px solid var(--line);
-      /* Reduced outer shadow so overlapping panels don't create heavy dark seams */
-      box-shadow:0 10px 30px var(--shadow);
-      display:flex;flex-direction:column;gap:18px;}
+    /* Use a single subtle surface color to remove visible horizontal gradient seams */
+    .wrap{width:100%;max-width:var(--maxw);min-height:calc(100vh - 96px);background:rgba(255,255,255,0.012);border-radius:12px;padding:28px;border:1px solid var(--line);box-shadow:0 6px 20px var(--shadow-wrap);display:flex;flex-direction:column;gap:18px}
 
-    /* Unified titlebar */
     .titlebar{background:linear-gradient(180deg,var(--panel),var(--panel-2));padding:14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:6px}
     .crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
-    /* Make heading size consistent across pages and slightly quieter glow */
-    .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.08)}
+    .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.06)}
 
-    /* Navigation */
     nav{display:flex;gap:12px;margin-top:6px}
     nav a{display:inline-block;font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;padding:8px 10px;border-radius:6px;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
-    /* Subtle hover shadow and lift */
     nav a:hover{background:rgba(255,255,255,0.02);box-shadow:0 6px 12px var(--accent-glow);transform:translateY(-2px)}
-    nav a:active{transform:translateY(0)}
     nav a:focus{outline:none;box-shadow:0 0 0 4px rgba(227,168,90,0.06)}
 
-    /* Main area: large, PDA-like card that fills the available space */
     main{display:flex;flex:1;gap:18px}
     .leftcol{flex:1;display:flex;flex-direction:column;gap:18px}
     .rightcol{width:320px;min-width:260px}
 
-    /* Cards: keep inner inset subtle and outer shadow very soft to avoid heavy overlap */
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.02));border-radius:10px;padding:20px;min-height:50vh;border:1px solid rgba(255,255,255,0.015);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 18px rgba(0,0,0,0.18)}
-
-    /* Empty state visual treatment */
+    /* Cards: remove outer drop shadows so they visually fit and don't overlap */
+    .card{background:rgba(255,255,255,0.012);border-radius:10px;padding:20px;min-height:50vh;border:1px solid rgba(255,255,255,0.015);box-shadow:inset 0 1px 0 rgba(255,255,255,0.02)}
     .card.empty{display:flex;align-items:center;justify-content:center;color:rgba(227,168,90,0.08);font-family:'Oswald',sans-serif;font-size:18px;text-transform:uppercase;letter-spacing:0.12em}
 
     footer{margin-top:6px;color:var(--muted);font-size:13px}
@@ -77,7 +63,7 @@
   <div class="stage">
     <div class="wrap">
       <div class="titlebar">
-        <div class="crumbs">S.T.A.L.K.E.R. BEYOND WIKI / HOME</div>
+        <div class="crumbs">S.T.A.L.K.E.R. BEYOND WIKI / THE PAGE</div>
         <h1>Home</h1>
       </div>
 
@@ -91,15 +77,10 @@
 
       <main>
         <div class="leftcol">
-          <!-- Large empty card for the main content area; intentionally blank until content is added -->
           <section class="card empty" aria-label="main-content"></section>
-
-          <!-- Secondary card — also empty for now -->
           <section class="card empty" aria-label="secondary-content"></section>
         </div>
-
         <aside class="rightcol">
-          <!-- Sidebar placeholder (empty) -->
           <section class="card empty" aria-label="sidebar"></section>
         </aside>
       </main>
