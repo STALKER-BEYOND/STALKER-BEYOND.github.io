@@ -1,21 +1,18 @@
 # Stalker Beyond Wiki
 
-v0.1 baseline site.
+v0.1 baseline site (updated):
 
-This repository hosts the Stalker Beyond wiki pages with a STALKER 2-inspired amber/brown styling.
+- Added canonical home at `/home/` and a redirect at the root `/`.
+- Removed the non-linking cards from the home page.
+- Nav order: Home, Rules, Lore, Warfare, FAQ
 
 Files included:
-- index.html
+- index.html (redirect to /home/)
+- home/index.html (canonical home)
 - rules/index.html
 - lore/index.html
 - warfare/index.html
 - faq/index.html
 
-The base site URL will be:
+Site URL:
 - https://stalker-beyond.github.io/wiki/
-
-And child pages use paths like:
-- https://stalker-beyond.github.io/wiki/rules/
-- https://stalker-beyond.github.io/wiki/lore/
-- https://stalker-beyond.github.io/wiki/warfare/
-- https://stalker-beyond.github.io/wiki/faq/

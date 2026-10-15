@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stalker Beyond Wiki — Home</title>
+  <meta name="description" content="Stalker Beyond — rules, lore, and community documentation.">
+  <style>
+    :root{
+      --bg-1:#060605;
+      --bg-2:#0d0b07;
+      --panel:#0d0c09;
+      --panel-2:#17130e;
+      --amber:#e3a85a;
+      --amber-soft:#f3c679;
+      --muted:#a0865a;
+      --line:rgba(227,168,90,0.12);
+      --shadow:rgba(0,0,0,0.45);
+      --maxw:980px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(134,95,52,0.10), transparent 18%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+      color:var(--amber-soft);
+      padding:24px;
+      line-height:1.45;
+    }
+
+    .wrap{
+      max-width:var(--maxw);
+      margin:0 auto;
+      background:rgba(0,0,0,0.06);
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:18px;
+      box-shadow:0 10px 40px var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .wrap::before{
+      content:"";
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+      pointer-events:none;
+    }
+
+    .header{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      position:relative;
+      z-index:1;
+    }
+
+    h1{
+      margin:0;
+      font-size:26px;
+      letter-spacing:0.08em;
+      color:var(--amber-soft);
+      font-weight:800;
+      line-height:1.1;
+      text-transform:uppercase;
+      text-shadow:0 0 8px rgba(227,168,90,0.12);
+    }
+
+    nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:4px;
+    }
+
+    nav a{
+      color:var(--amber);
+      text-decoration:none;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      padding:6px 8px;
+      border:1px solid transparent;
+      border-radius:6px;
+    }
+
+    nav a:hover{
+      border-color:var(--line);
+      background:rgba(255,255,255,0.02);
+    }
+
+    main{
+      position:relative;
+      z-index:1;
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:16px;
+    }
+
+    .card h2{
+      margin:0 0 10px 0;
+      font-size:18px;
+      color:var(--amber-soft);
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+    }
+
+    .card p{ margin:0; color:var(--muted); font-size:14px; }
+
+    .scanlines{ position:fixed; inset:0; background:linear-gradient(rgba(255,255,255,0.02), rgba(0,0,0,0.03)); pointer-events:none; opacity:0.18; mix-blend-mode:screen; }
+    .grain{ position:fixed; inset:0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Crect width='6' height='6' fill='%230b0b09'/%3E%3Ccircle cx='1.2' cy='1.2' r='0.7' fill='%2316120d'/%3E%3C/svg%3E"); opacity:0.12; pointer-events:none; mix-blend-mode:overlay; }
+
+    @media (max-width:600px){
+      body{padding:14px}
+      .wrap{padding:14px}
+      nav{gap:8px}
+      nav a{font-size:11px;padding:5px 6px}
+      h1{font-size:20px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <h1 aria-label="Stalker Beyond Wiki">S.T.A.L.K.E.R. BEYOND WIKI</h1>
+
+      <nav aria-label="Main navigation">
+        <a href="./">Home</a>
+        <a href="../rules/">Rules</a>
+        <a href="../lore/">Lore</a>
+        <a href="../warfare/">Warfare</a>
+        <a href="../faq/">FAQ</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Welcome</h2>
+        <p>This is the wiki home page (canonical: /home/). You can edit this content later. To add a new page, duplicate a file, rename it, and update the content inside the main section.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="scanlines"></div>
+  <div class="grain"></div>
+</body>
+</html>
