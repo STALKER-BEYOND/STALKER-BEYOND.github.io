@@ -88,53 +88,57 @@ nav a:focus{
   outline:none;
 }
 
-/* Underline / light bar: centered under the link text; appears on hover and persists for .active
-   Reworked to add two layers: a sharp thin strip (::before) and a diffused halo (::after).
-   Kept sizes and timings conservative to preserve current look. */
+/* Underline / light bar: refined to match reference image more closely
+   - much thinner sharp center strip
+   - tighter vertical placement (closer to text baseline)
+   - added subtle top highlight and stronger localized glow
+   - halo layer adjusted to sit and bleed like the screenshot */
 nav a::before{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-14px;
-  transform:translateX(-50%) scaleX(.95);
-  width:56%; /* default width when visible */
-  max-width:180px;
-  height:6px; /* sharp strip thickness */
-  background:linear-gradient(90deg,
-    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 0%,
-    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.95) 50%,
-    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 100%);
-  box-shadow:0 6px 18px rgba(0,0,0,0.45), 0 10px 28px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12);
-  border-radius:4px;
-  transition:opacity .18s ease, transform .18s ease;
+  bottom:-10px; /* pulled up closer to the text */
+  transform:translateX(-50%) scaleX(.98);
+  width:56%;
+  max-width:160px;
+  height:4px; /* thinner, sharper strip */
+  border-radius:3px;
+  /* composite: subtle top highlight + intense center band using layered gradients */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.12) 22%, rgba(255,255,255,0.02) 36%, rgba(0,0,0,0) 60%),
+    linear-gradient(90deg, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 0%, rgba(255,250,230,0.98) 48%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.96) 50%, rgba(255,250,230,0.98) 52%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 100%);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.6), /* plate separation */
+    0 10px 24px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.22); /* warm glow */
+  transition:opacity .16s ease, transform .18s cubic-bezier(.2,.9,.2,1);
   opacity:0;
   pointer-events:none;
-  z-index:2;
+  z-index:3;
 }
 
 nav a::after{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-20px;
+  bottom:-6px; /* sits just beneath the sharp strip to create the bleed */
   transform:translateX(-50%);
-  width:80%;
-  max-width:260px;
-  height:18px; /* diffused halo height */
-  border-radius:14px;
+  width:86%;
+  max-width:300px;
+  height:20px; /* localized halo */
+  border-radius:12px;
   background:radial-gradient(ellipse at center,
-    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.30) 0%,
-    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12) 20%,
-    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02) 40%,
-    rgba(0,0,0,0) 70%);
-  filter:blur(6px);
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.44) 0%,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18) 18%,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06) 36%,
+    rgba(0,0,0,0) 75%);
+  filter:blur(8px);
   opacity:0;
-  transition:opacity .20s ease;
+  transition:opacity .22s ease;
   pointer-events:none;
   z-index:1;
 }
 
-/* show/animate the effect on hover, focus, and when link has .active */
+/* stronger reveal on hover/active; keep it quick and tight */
 nav a:hover::before, nav a:focus::before, nav a.active::before{ opacity:1; transform:translateX(-50%) scaleX(1); }
 nav a:hover::after, nav a:focus::after, nav a.active::after{ opacity:1; }
 
