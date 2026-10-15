@@ -24,7 +24,8 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--accent-soft);fon
 .wrap{
   position:relative;
   width:100%;
-  max-width:1100px;
+  /* increased max-width so the site feels wider like a full website while keeping centered PDA look */
+  max-width:1400px;
   min-height:calc(100vh - 96px);
   padding:var(--wrap-padding);
   border-radius:var(--wrap-radius);
@@ -45,17 +46,19 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--accent-soft);fon
 
 .titlebar{background:linear-gradient(180deg,#0b0a08,#15120f);padding:14px;border-radius:0;border-bottom:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:6px}
 .crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
-.titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.06)}
+.titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.0[...]
 
 nav{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap}
-nav a{display:inline-block;font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;padding:8px 10px;border-radius:6px;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:uppercase}
+nav a{display:inline-block;font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;padding:8px 10px;border-radius:6px;font-weight:600;font-size:13px;letter-spacing:0.08em;text-tra[...]
 nav a:hover{background:rgba(255,255,255,0.02);transform:translateY(-2px)}
 
 main{display:flex;flex:1;gap:18px}
 .leftcol{flex:1;display:flex;flex-direction:column;gap:18px}
-.rightcol{width:320px;min-width:260px}
+/* slightly wider right column to match increased layout width */
+.rightcol{width:360px;min-width:260px}
 .card{background:var(--surface);border-radius:var(--card-radius);padding:20px;min-height:40vh;border:1px solid rgba(255,255,255,0.015);box-shadow:inset 0 1px 0 var(--inner-line)}
-.card.empty{display:flex;align-items:center;justify-content:center;color:rgba(227,168,90,0.06);font-family:'Oswald',sans-serif;font-size:16px;text-transform:uppercase;letter-spacing:0.12em}
+/* hide empty placeholder cards site-wide so they don't leave empty boxes on pages */
+.card.empty{display:none !important}
 
 .card img, .wrap img { display:block; width:100%; height:auto; max-height:480px; object-fit:cover; border-radius:8px; box-shadow:none; background-color: rgba(0,0,0,0.04); }
 .img-contain { object-fit:contain; }
