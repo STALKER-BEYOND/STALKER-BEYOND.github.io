@@ -18,8 +18,11 @@
     .crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
     .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:20px;text-shadow:0 0 8px rgba(227,168,90,0.12)}
     nav{display:flex;gap:10px;margin-top:12px}
-    nav a{font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;padding:6px 8px;border-radius:6px;font-weight:600;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
-    nav a:hover{background:rgba(255,255,255,0.02);border:1px solid var(--line)}
+    nav a{display:inline-block;font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;padding:6px 8px;border-radius:6px;font-weight:600;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;border:1px solid transparent;transition:background-color .15s ease,transform .12s ease,box-shadow .12s ease,color .12s ease;will-change:transform,box-shadow}
+    nav a:hover{background:rgba(255,255,255,0.02);box-shadow:0 6px 14px rgba(227,168,90,0.06);transform:translateY(-2px)}
+    nav a:active{transform:translateY(0)}
+    nav a:focus{outline:none;box-shadow:0 0 0 3px rgba(227,168,90,0.08)}
+    nav a:focus-visible{outline:none}
     main{margin-top:16px}
     .card{background:transparent;padding:16px;border-radius:8px}
     .card h2{font-family:'Oswald',sans-serif;margin:0 0 8px 0;color:var(--accent-soft);letter-spacing:0.08em;text-transform:uppercase}
