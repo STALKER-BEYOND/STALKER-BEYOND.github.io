@@ -55,6 +55,9 @@ a{color:inherit}
 
 /* NAV: canonical PDA behavior without separators; always reachable and clickable on every page */
 nav{display:flex;gap:18px;margin-top:6px;flex-wrap:nowrap;align-items:center;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;width:100%}
+
+/* NAV LINKS: apply a warm vertical gradient to the letters and stronger inner highlight so labels look like the reference
+   - Use background-clip:text for precise tint; fallback color remains var(--accent) for non-supporting browsers */
 nav a, nav a:link, nav a:visited {
   display:inline-block;
   position:relative;
@@ -64,100 +67,96 @@ nav a, nav a:link, nav a:visited {
   text-decoration:none;
   padding:6px 8px;
   border-radius:0;
-  font-weight:600;
+  font-weight:700; /* slightly bolder to match reference */
   font-size:13px;
-  letter-spacing:0.08em;
+  letter-spacing:0.09em;
   text-transform:uppercase;
   line-height:1.2;
   flex:0 0 auto;
-  transition:color .14s ease, text-shadow .14s ease, transform .12s ease;
+  transition:color .12s ease, text-shadow .12s ease, transform .10s ease;
   cursor:pointer;
+  /* gradient text */
+  background-image: linear-gradient(180deg, #ffd59a 0%, #f59b3b 45%, #c86a21 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* allow gradient to show */
+  text-shadow: 0 0 6px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.02) inset;
 }
 
-/* no // separators */
-nav::-webkit-scrollbar{height:6px}
-nav::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.02);border-radius:4px}
-nav{-ms-overflow-style:none;scrollbar-width:none}
-
-/* LETTER-ONLY light-up + tiny pop on hover/focus */
+/* Hover/focus/active tint & micro-pop */
 nav a:hover,
 nav a:focus{
-  color:var(--accent-soft) !important;
-  text-shadow:0 0 10px rgba(243,198,121,0.22);
-  transform:translateY(-1px) scale(1.005);
+  transform:translateY(-0.5px) scale(1.01);
+  text-shadow: 0 0 10px rgba(246,160,60,0.22), 0 1px 0 rgba(255,255,255,0.06);
   outline:none;
 }
 
-/* FINAL reference-tight nav glow: ultra-thin bright core, strong center highlight, hard top reflection and a compact reflective plate with a warm halo
-   Notes: keeps everything subtle until hover/active; uses multiple gradient layers to reproduce the look in the screenshot.
+/* REFINED UNDERLINE & PLATE for each nav label — tuned to match the screenshot closely:
+   - narrower ultra-bright core (1px) with a warm center
+   - reflective plate directly under the core
+   - compact amber halo behind the plate
 */
 nav a::before{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-8px; /* bring very close to baseline */
-  transform:translateX(-50%) scaleX(.92);
-  width:48%;
-  max-width:150px;
-  height:2px; /* ultra-thin core */
-  border-radius:2px;
-  /* Layer 1: tiny hard top specular highlight (very narrow)
-     Layer 2: intense narrow center band (near-white warm)
-     Layer 3: colored outer falloff for the amber tint */
+  bottom:-7px; /* very close beneath the text */
+  transform:translateX(-50%) scaleX(.95);
+  width:46%;
+  max-width:140px;
+  height:1px; /* ultra-thin core */
+  border-radius:1px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.65) 30%, rgba(255,255,255,0) 40%),
-    linear-gradient(90deg, rgba(255,250,236,0.0) 0%, rgba(255,250,236,0.98) 49%, rgba(255,245,200,0.99) 50%, rgba(255,250,236,0.98) 51%, rgba(255,250,236,0.0) 100%),
-    linear-gradient(90deg, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 0%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.70) 50%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 100%);
-  /* stronger localized glow/shadow below the core to match bright pooled illumination */
+    linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,250,236,0.98) 48%, rgba(255,245,200,1) 50%, rgba(255,250,236,0.98) 52%, rgba(255,255,255,0) 100%);
   box-shadow:
-    0 1px 2px rgba(0,0,0,0.8), /* plate separation */
-    0 6px 14px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.30), /* close glow */
-    0 12px 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12); /* softer spread */
+    0 0 0 rgba(0,0,0,0),
+    0 6px 16px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.28);
   opacity:0;
-  transition:opacity .12s ease, transform .16s cubic-bezier(.2,.9,.2,1);
+  transition:opacity .08s ease, transform .14s cubic-bezier(.2,.9,.2,1);
   pointer-events:none;
-  z-index:5;
+  z-index:6;
 }
 
-/* Reflective plate / lip directly beneath the core line. This reproduces the brighter rectangular area and the dark groove below it seen in the reference. */
+/* Reflective plate (darker) */
 nav a::after{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-18px; /* sits directly under the thin core */
+  bottom:-14px; /* sits just under the thin core */
   transform:translateX(-50%);
-  width:86%;
-  max-width:320px;
-  height:12px; /* narrow reflective strip */
+  width:84%;
+  max-width:300px;
+  height:10px; /* narrow plate */
   border-radius:3px;
-  /* dark plate base with a faint lighter top edge to simulate the metal/led cap */
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.65) 8%, rgba(0,0,0,0.55) 20%, rgba(0,0,0,0.78) 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.03), /* subtle top edge catch */
-    0 18px 36px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.30); /* the long diffused amber bloom */
-  filter:blur(1px); /* small softness to blend with page */
+  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.68) 12%, rgba(0,0,0,0.85) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  filter: blur(0.8px);
   opacity:0;
-  transition:opacity .18s ease;
+  transition:opacity .12s ease;
   pointer-events:none;
-  z-index:2;
+  z-index:3;
 }
 
-/* On reveal, make the core crisp, the plate visible, and the bloom pronounced */
+/* Add a localized glow element behind the plate for the warm pooled light */
+nav a .nav-glow {
+  /* kept as a helper if needed for JS-inserted elements; otherwise the ::before/::after handle it */
+  display:none;
+}
+
+/* Reveal on hover/focus/active */
 nav a:hover::before,
 nav a:focus::before,
 nav a.active::before{
   opacity:1;
   transform:translateX(-50%) scaleX(1);
 }
-
 nav a:hover::after,
 nav a:focus::after,
 nav a.active::after{
   opacity:1;
 }
 
-/* Accessibility: keyboard outlines */
+/* keyboard focus visible */
 nav a:focus-visible{ outline:2px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.10); outline-offset:4px }
 
 main{display:block;flex:1;gap:18px}
