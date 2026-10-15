@@ -50,8 +50,23 @@ a{color:inherit}
 .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.15)}
 
 nav{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap}
-nav a{display:inline-block;font-family:'Oswald',sans-serif;color:var(--accent);text-decoration:none;padding:8px 10px;border-radius:6px;font-weight:600;font-size:13px;letter-spacing:0.08em;text-transform:none;line-height:1.2}
-nav a:hover{background:rgba(255,255,255,0.02);transform:translateY(-2px)}
+/* Restore PDA "button" appearance and uppercase labels for nav links */
+nav a, nav a:link, nav a:visited {
+  display:inline-block;
+  font-family:'Oswald',sans-serif;
+  color:var(--accent) !important;
+  background:transparent;
+  text-decoration:none;
+  padding:8px 10px;
+  border-radius:6px;
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  line-height:1.2;
+  transition:transform .12s ease, background .12s ease, color .12s ease;
+}
+nav a:hover{background:rgba(255,255,255,0.02);transform:translateY(-2px);color:var(--accent-soft) !important}
 
 main{display:block;flex:1;gap:18px}
 .leftcol,.rightcol{display:none}
