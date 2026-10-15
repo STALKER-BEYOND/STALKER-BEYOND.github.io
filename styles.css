@@ -183,8 +183,34 @@ html{scroll-behavior:smooth}
 .rules-body p{margin:0}
 .rules-body a{color:var(--accent-soft)}
 
-.callout{margin-bottom:24px;padding:18px 22px;border:1px solid var(--pda-edge);border-left:2px solid var(--accent);background:linear-gradient(90deg,rgba(227,168,90,.08),rgba(227,168,90,0) 60%),var(--pda-panel)}
-.callout h2{margin:0 0 6px;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;line-height:20px;letter-spacing:.1em;text-transform:uppercase}
+/* callout = a highlighted PDA Notes entry: dark orange fill with solid orange end bars and a
+   glowing edge, note title + orange subtitle + divider + grey text (colours sampled in-game) */
+.callout{
+  margin-bottom:24px;
+  padding:20px 30px 22px;
+  background:
+    linear-gradient(#ef8e01,#ef8e01) left / 7px 100% no-repeat,
+    linear-gradient(#ef8e01,#ef8e01) right / 7px 100% no-repeat,
+    #140e06;
+  box-shadow:inset 0 1px 0 #3e280a,inset 0 -1px 0 #4d3009,0 0 4px rgba(239,142,1,.16);
+}
+.callout h2{
+  margin:0;
+  color:#e3dfcd;
+  font-family:'Oswald',sans-serif;
+  font-weight:600;
+  font-size:28px;
+  line-height:34px;
+}
+.rules-body .callout-sub{
+  margin:2px 0 0;
+  padding-bottom:12px;
+  border-bottom:2px solid #24211e;
+  color:#f38f01;
+  font-size:17px;
+  line-height:22px;
+}
+.rules-body .callout-sub + p{margin-top:12px;color:#9fa299}
 
 .rule-section{margin-bottom:24px;background:var(--pda-panel);border:1px solid var(--pda-edge);box-shadow:inset 0 1px 0 var(--pda-panel-hi);scroll-margin-top:20px}
 .rule-section h2{display:flex;align-items:baseline;gap:14px;margin:0;padding:14px 20px;border-bottom:1px solid var(--pda-edge);background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,0));color:var(--pda-text);font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;line-height:22px;letter-spacing:.1em;text-transform:uppercase}
@@ -267,7 +293,9 @@ footer.pda-bottom{
 
 @media (max-width:720px){
   .rule{grid-template-columns:34px minmax(0,1fr);column-gap:10px;padding:12px 14px}
-  .rule-section h2,.section-text,.callout{padding-left:14px;padding-right:14px}
+  .rule-section h2,.section-text{padding-left:14px;padding-right:14px}
+  .callout{padding:16px 20px 18px}
+  .callout h2{font-size:24px;line-height:30px}
   .relations{padding:16px 14px}
   :root{--gutter:16px}
   nav{padding:0;-webkit-mask-image:linear-gradient(to right,transparent,#000 18px,#000 calc(100% - 18px),transparent);mask-image:linear-gradient(to right,transparent,#000 18px,#000 calc(100% - 18px),transparent)}
