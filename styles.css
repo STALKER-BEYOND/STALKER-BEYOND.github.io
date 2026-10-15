@@ -1,4 +1,4 @@
-/* styles.css - centralized UI for STALKER-BEYOND wiki, modelled on the STALKER 2 PDA
+/* styles.css - centralized UI for the STALKER-BEYOND site, modelled on the STALKER 2 PDA
    - full-viewport "screen": tab bar, rail, content, bottom bar (no floating box)
    - nav tabs use the PDA selected-tab treatment: solid light bar + upward bloom
    - PDA colours sampled from an in-game screenshot; amber accents kept from v0.1
@@ -237,6 +237,9 @@ html{scroll-behavior:smooth}
 .relations-legend b{color:var(--pda-text);font-weight:500}
 .swatch{display:inline-block;width:12px;height:12px}
 .relations-note{margin-top:10px !important;color:var(--pda-text-dim);font-size:13px}
+
+.notfound{margin:0;color:var(--pda-text);font-size:15px;line-height:1.65}
+.notfound a{color:var(--accent-soft)}
 
 /* BOTTOM BAR */
 footer.pda-bottom{
