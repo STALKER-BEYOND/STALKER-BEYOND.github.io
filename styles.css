@@ -54,10 +54,7 @@ a{color:inherit}
 .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.12)}
 
 /* NAV: canonical PDA behavior without separators; always reachable and clickable on every page */
-/* Keep bottom padding so pseudo-elements are visible without scrolling */
 nav{display:flex;gap:18px;margin-top:6px;flex-wrap:nowrap;align-items:center;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;width:100%;padding-bottom:18px}
-
-/* NAV LINKS: restore original color and minimal weight; match PDA-style labels */
 nav a, nav a:link, nav a:visited {
   display:inline-block;
   position:relative;
@@ -75,10 +72,9 @@ nav a, nav a:link, nav a:visited {
   flex:0 0 auto;
   transition:color .12s ease, text-shadow .12s ease, transform .10s ease;
   cursor:pointer;
-  -webkit-font-smoothing:antialiased; /* keep crisp letters */
+  -webkit-font-smoothing:antialiased;
 }
 
-/* light hover pop, keep subtle */
 nav a:hover,
 nav a:focus{
   color:var(--accent-soft) !important;
@@ -87,46 +83,41 @@ nav a:focus{
   outline:none;
 }
 
-/* Minimalistic PDA-style underline: very thin near-white core, tiny soft halo only.
-   Removed heavy plate/dark groove and removed strong amber tint. Kept effect minimal. */
+/* Minimalistic PDA bar: fixed length, same for each nav item, placed very close to words */
 nav a::before{
   content:"";
   position:absolute;
   left:50%;
-  top:calc(100% + 2px); /* just below the anchor box */
-  transform:translateX(-50%) scaleX(.98);
-  width:40%;
-  max-width:130px;
-  height:1px; /* ultra-thin core */
+  top:calc(100% - 6px);
+  transform:translateX(-50%) scaleX(1);
+  width:120px;
+  height:1px;
   border-radius:1px;
-  background: rgba(255,255,255,0.98); /* near-white */
-  box-shadow: 0 6px 12px rgba(255,255,255,0.04); /* very subtle soft halo */
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 4px 8px rgba(255,255,255,0.04);
   opacity:0;
-  transition:opacity .10s ease, transform .12s ease;
+  transition:opacity .08s ease, transform .10s ease;
   pointer-events:none;
   z-index:9;
 }
 
-/* soft halo behind the core, very faint and compact */
 nav a::after{
   content:"";
   position:absolute;
   left:50%;
-  top:calc(100% + 6px);
+  top:calc(100% - 2px);
   transform:translateX(-50%);
-  width:60%;
-  max-width:200px;
+  width:140px;
   height:10px;
   border-radius:8px;
   background: radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 25%, rgba(0,0,0,0) 60%);
   filter: blur(6px);
   opacity:0;
-  transition:opacity .16s ease;
+  transition:opacity .12s ease;
   pointer-events:none;
   z-index:3;
 }
 
-/* reveal minimal underline on hover/focus/active */
 nav a:hover::before, nav a:focus::before, nav a.active::before{ opacity:1; transform:translateX(-50%) scaleX(1); }
 nav a:hover::after, nav a:focus::after, nav a.active::after{ opacity:1; }
 
@@ -147,7 +138,6 @@ main{display:block;flex:1;gap:18px}
   padding:0;
 }
 
-/* remove duplicate page title text from the main content area */
 .content-panel .page-title{display:none !important}
 
 .card img, .wrap img { display:block; width:100%; height:auto; max-height:480px; object-fit:cover; border-radius:8px; box-shadow:none; background-color: rgba(0,0,0,0.04); }
