@@ -84,34 +84,29 @@ nav a:hover,
 nav a:focus{
   color:var(--accent-soft) !important;
   text-shadow:0 0 10px rgba(243,198,121,0.22);
-  transform:translateY(-3px) scale(1.01);
+  transform:translateY(-1px) scale(1.005);
   outline:none;
 }
 
-/* Underline / light bar: refined to match reference image more closely
-   - much thinner sharp center strip
-   - tighter vertical placement (closer to text baseline)
-   - added subtle top highlight and stronger localized glow
-   - halo layer adjusted to sit and bleed like the screenshot */
+/* Reference-tight nav glow: narrow orange line + soft amber bloom */
 nav a::before{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-10px; /* pulled up closer to the text */
-  transform:translateX(-50%) scaleX(.98);
-  width:56%;
-  max-width:160px;
-  height:4px; /* thinner, sharper strip */
-  border-radius:3px;
-  /* composite: subtle top highlight + intense center band using layered gradients */
+  bottom:-9px;
+  transform:translateX(-50%) scaleX(.9);
+  width:52%;
+  max-width:170px;
+  height:3px;
+  border-radius:2px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.12) 22%, rgba(255,255,255,0.02) 36%, rgba(0,0,0,0) 60%),
-    linear-gradient(90deg, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 0%, rgba(255,250,230,0.98) 48%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.96) 50%, rgba(255,250,230,0.98) 52%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 100%);
+    linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.10) 25%, rgba(255,255,255,0.04) 35%, rgba(0,0,0,0) 55%),
+    linear-gradient(90deg, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0) 0%, rgba(255,247,224,0.96) 46%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.98) 50%, rgba(255,247,224,0.96) 54%, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0) 100%);
   box-shadow:
-    0 2px 4px rgba(0,0,0,0.6), /* plate separation */
-    0 10px 24px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.22); /* warm glow */
-  transition:opacity .16s ease, transform .18s cubic-bezier(.2,.9,.2,1);
+    0 1px 3px rgba(0,0,0,0.7),
+    0 8px 18px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.24);
   opacity:0;
+  transition:opacity .18s ease, transform .18s cubic-bezier(.2,.9,.2,1);
   pointer-events:none;
   z-index:3;
 }
@@ -120,16 +115,16 @@ nav a::after{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-6px; /* sits just beneath the sharp strip to create the bleed */
+  bottom:-12px;
   transform:translateX(-50%);
-  width:86%;
-  max-width:300px;
-  height:20px; /* localized halo */
-  border-radius:12px;
+  width:82%;
+  max-width:260px;
+  height:16px;
+  border-radius:10px;
   background:radial-gradient(ellipse at center,
-    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.44) 0%,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.46) 0%,
     rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18) 18%,
-    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.06) 36%,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.05) 42%,
     rgba(0,0,0,0) 75%);
   filter:blur(8px);
   opacity:0;
@@ -138,9 +133,18 @@ nav a::after{
   z-index:1;
 }
 
-/* stronger reveal on hover/active; keep it quick and tight */
-nav a:hover::before, nav a:focus::before, nav a.active::before{ opacity:1; transform:translateX(-50%) scaleX(1); }
-nav a:hover::after, nav a:focus::after, nav a.active::after{ opacity:1; }
+nav a:hover::before,
+nav a:focus::before,
+nav a.active::before{
+  opacity:1;
+  transform:translateX(-50%) scaleX(1);
+}
+
+nav a:hover::after,
+nav a:focus::after,
+nav a.active::after{
+  opacity:1;
+}
 
 /* Accessibility: keyboard outlines */
 nav a:focus-visible{ outline:2px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.10); outline-offset:4px }
