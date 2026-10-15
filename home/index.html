@@ -39,6 +39,28 @@
       </div>
 
       <div class="content-panel home">
+        <section class="home-cine" aria-label="S.T.A.L.K.E.R. BEYOND">
+          <video class="cine-bg" autoplay muted loop playsinline preload="auto" poster="../assets/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+            <source src="../assets/video/hero-loop.mp4" type="video/mp4">
+          </video>
+          <div class="cine-shade" aria-hidden="true"></div>
+          <div class="cine-content">
+            <img class="home-logo" src="../assets/beyond-icon.jpg" alt="S.T.A.L.K.E.R. BEYOND emblem" width="120" height="120">
+            <div class="home-intro">
+              <h2>S.T.A.L.K.E.R. BEYOND</h2>
+              <p class="home-sub">DayZ Roleplay Community</p>
+              <p>S.T.A.L.K.E.R. BEYOND is a DayZ based roleplay community themed around STALKER. You must be 18+ to whitelist.</p>
+              <div class="cine-actions">
+                <button class="pda-button primary cine-play" type="button" aria-haspopup="dialog">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12.5-7.5z"/></svg>
+                  Watch the Trailer
+                </button>
+                <p class="discord-live" hidden><i class="live-dot" aria-hidden="true"></i><b data-online></b> online <span>/</span> <b data-members></b> members</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="home-steps" aria-labelledby="steps-title">
           <h2 id="steps-title" class="home-steps-title">Getting Started</h2>
           <ol class="steps">
@@ -48,15 +70,17 @@
           </ol>
         </section>
 
-        <section class="home-hero">
-          <img class="home-logo" src="../assets/beyond-icon.jpg" alt="S.T.A.L.K.E.R. BEYOND emblem" width="160" height="160">
-          <div class="home-intro">
-            <h2>S.T.A.L.K.E.R. BEYOND</h2>
-            <p class="home-sub">DayZ Roleplay Community</p>
-            <p>S.T.A.L.K.E.R. BEYOND is a DayZ based roleplay community themed around STALKER. You must be 18+ to whitelist.</p>
-            <p class="discord-live" hidden><i class="live-dot" aria-hidden="true"></i><b data-online></b> online <span>/</span> <b data-members></b> members</p>
+        <dialog class="trailer-dialog" aria-label="S.T.A.L.K.E.R. BEYOND trailer">
+          <div class="trailer-frame">
+            <div class="trailer-bar">
+              <span>S.T.A.L.K.E.R. BEYOND — Trailer</span>
+              <button class="trailer-close" type="button">Close <kbd>Esc</kbd></button>
+            </div>
+            <video class="trailer-video" controls playsinline preload="none" poster="../assets/hero-poster.jpg">
+              <source src="../assets/video/trailer.mp4" type="video/mp4">
+            </video>
           </div>
-        </section>
+        </dialog>
       </div>
     </main>
 
@@ -67,6 +91,16 @@
     (function(){var n=document.querySelector('nav'),a=n&&n.querySelector('a.active');if(!a)return;function c(){n.scrollLeft=a.offsetLeft-(n.clientWidth-a.offsetWidth)/2;}c();if(document.fonts)document.fonts.ready.then(c);})();
     // live Discord member/online counts from the public invite (stays hidden if it can't load)
     (function(){var box=document.querySelector('.discord-live');if(!box||!window.fetch)return;fetch('https://discord.com/api/v10/invites/SX2zFKFpmN?with_counts=true').then(function(r){return r.ok?r.json():null;}).then(function(d){if(!d||!d.approximate_member_count)return;box.querySelector('[data-online]').textContent=d.approximate_presence_count.toLocaleString();box.querySelector('[data-members]').textContent=d.approximate_member_count.toLocaleString();box.hidden=false;}).catch(function(){});})();
+    // cinematic header: the background loop pauses for reduced-motion users and while the trailer plays
+    (function(){var bg=document.querySelector('.cine-bg'),dlg=document.querySelector('.trailer-dialog'),btn=document.querySelector('.cine-play');if(!bg)return;
+      var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(still){bg.removeAttribute('autoplay');bg.pause();}
+      if(!dlg||!btn||!dlg.showModal){if(btn)btn.addEventListener('click',function(){location.href='../assets/video/trailer.mp4';});return;}
+      var v=dlg.querySelector('video');
+      btn.addEventListener('click',function(){dlg.showModal();bg.pause();var p=v.play();if(p&&p.catch)p.catch(function(){});});
+      dlg.querySelector('.trailer-close').addEventListener('click',function(){dlg.close();});
+      dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
+      dlg.addEventListener('close',function(){v.pause();if(!still){var p=bg.play();if(p&&p.catch)p.catch(function(){});}btn.focus();});
+    })();
   </script>
 </body>
 </html>

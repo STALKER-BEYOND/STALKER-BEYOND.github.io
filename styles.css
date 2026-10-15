@@ -280,11 +280,33 @@ html{scroll-behavior:smooth}
 .content-panel.home{display:grid;gap:24px;color:var(--pda-text);font-size:15px;line-height:1.65}
 .home p{margin:0}
 
-.home-hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:center;padding:28px 32px;background:radial-gradient(ellipse 340px 260px at 112px 50%,rgba(243,143,1,.09),rgba(243,143,1,0) 70%),var(--pda-panel);border:1px solid var(--pda-edge);box-shadow:inset 0 1px 0 var(--pda-panel-hi)}
-.home-logo{display:block;width:160px;height:160px;border:1px solid #3a2a12;box-shadow:0 0 0 4px #140e06,0 0 0 5px #3e280a,0 0 28px rgba(243,143,1,.22)}
-.home-intro h2{margin:0;color:#e3dfcd;font-family:'Oswald',sans-serif;font-weight:600;font-size:34px;line-height:40px}
-.home .home-sub{margin:2px 0 12px;padding-bottom:12px;border-bottom:2px solid #24211e;color:#f38f01;font-size:17px;line-height:22px}
-.home-intro > p:not(.home-sub):not(.discord-live){max-width:640px;color:#9fa299}
+/* cinematic header: muted trailer loop behind a PDA-screen shade */
+.home-cine{position:relative;display:flex;align-items:flex-end;min-height:clamp(400px,56vh,600px);overflow:hidden;background:#0c0a09 url("assets/hero-poster.jpg") center / cover no-repeat;border:1px solid var(--pda-edge);box-shadow:inset 0 1px 0 var(--pda-panel-hi)}
+.cine-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.05) brightness(.9)}
+.pda-screen .home-cine img.home-logo{width:120px;height:120px;max-height:none;border-radius:0}
+.cine-shade{position:absolute;inset:0;background:
+  repeating-linear-gradient(180deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px),
+  linear-gradient(90deg,rgba(12,10,9,.94) 0%,rgba(12,10,9,.78) 34%,rgba(12,10,9,.28) 68%,rgba(12,10,9,.12) 100%),
+  linear-gradient(0deg,rgba(12,10,9,.9) 0%,rgba(12,10,9,0) 50%),
+  radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,.45) 100%)}
+.cine-content{position:relative;display:flex;align-items:flex-end;gap:28px;width:100%;max-width:960px;padding:40px 44px}
+.home-logo{display:block;flex:none;border:1px solid #3a2a12;box-shadow:0 0 0 4px #140e06,0 0 0 5px #3e280a,0 0 28px rgba(243,143,1,.25)}
+.home-intro h2{margin:0;color:#e3dfcd;font-family:'Oswald',sans-serif;font-weight:600;font-size:40px;line-height:46px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.home .home-sub{margin:2px 0 12px;padding-bottom:12px;border-bottom:2px solid rgba(60,55,50,.8);color:#f38f01;font-size:17px;line-height:22px}
+.home-intro > p:not(.home-sub){max-width:600px;color:#c3b8aa;text-shadow:0 1px 6px rgba(0,0,0,.7)}
+.cine-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:20px}
+.cine-actions .discord-live{margin:0 !important}
+button.pda-button{cursor:pointer}
+
+/* trailer player */
+.trailer-dialog{width:min(1200px,94vw);max-width:none;padding:0;border:0;background:transparent;color:var(--pda-text)}
+.trailer-dialog::backdrop{background:rgba(5,4,3,.88)}
+.trailer-frame{background:var(--pda-panel);border:1px solid var(--pda-edge);box-shadow:inset 0 1px 0 var(--pda-panel-hi),0 20px 60px rgba(0,0,0,.6)}
+.trailer-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 16px;border-bottom:1px solid var(--pda-edge);color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;line-height:16px;letter-spacing:.1em;text-transform:uppercase}
+.trailer-close{display:inline-flex;align-items:center;gap:8px;padding:5px 8px 5px 12px;border:1px solid var(--pda-edge);background:#26231f;color:var(--pda-text);font:inherit;cursor:pointer}
+.trailer-close:hover,.trailer-close:focus-visible{background:#2f2b26;color:#e3dfcd;outline:none}
+.trailer-close kbd{padding:1px 5px;border:1px solid #4a4540;background:#1a1816;color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-size:11px}
+.trailer-video{display:block;width:100%;aspect-ratio:16 / 9;background:#000}
 
 .pda-button{display:inline-flex;align-items:center;gap:10px;padding:11px 22px;border:1px solid var(--pda-edge);background:#26231f;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);color:var(--pda-text);font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;line-height:20px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background-color .15s ease,color .15s ease,box-shadow .15s ease}
 .pda-button:hover,.pda-button:focus-visible{background-color:#2f2b26;color:#e3dfcd;outline:none}
@@ -292,7 +314,7 @@ html{scroll-behavior:smooth}
 .pda-button.primary:hover,.pda-button.primary:focus-visible{background-color:#22170a;box-shadow:inset 0 1px 0 #5a3a0c,inset 0 -1px 0 #6a420c,0 0 10px rgba(239,142,1,.28)}
 .pda-button svg{flex:none}
 
-.home .discord-live{display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-size:13px;line-height:16px;letter-spacing:.08em;text-transform:uppercase}
+.home .discord-live{display:flex;align-items:center;gap:8px;margin-top:14px;text-shadow:0 1px 6px rgba(0,0,0,.7);color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-size:13px;line-height:16px;letter-spacing:.08em;text-transform:uppercase}
 .discord-live[hidden]{display:none}
 .discord-live b{color:var(--pda-text);font-weight:600}
 .discord-live span{color:var(--pda-edge)}
@@ -338,9 +360,11 @@ footer.pda-bottom{
 }
 
 @media (max-width:720px){
-  .home-hero{grid-template-columns:minmax(0,1fr);gap:20px;padding:22px 16px;justify-items:start}
-  .home-logo{width:112px;height:112px}
-  .home-intro h2{font-size:28px;line-height:34px}
+  .home-cine{min-height:460px}
+  .cine-content{flex-direction:column;align-items:flex-start;gap:16px;padding:24px 16px}
+  .pda-screen .home-cine img.home-logo{width:84px;height:84px}
+  .home-intro h2{font-size:30px;line-height:36px}
+  .cine-shade{background:repeating-linear-gradient(180deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px),linear-gradient(0deg,rgba(12,10,9,.95) 0%,rgba(12,10,9,.7) 55%,rgba(12,10,9,.3) 100%)}
   .steps{grid-template-columns:minmax(0,1fr);gap:10px}
   .step{min-height:72px;padding:14px 46px 14px 18px;gap:14px}
   .step-num{font-size:24px}
