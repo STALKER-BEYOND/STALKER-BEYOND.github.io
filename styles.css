@@ -54,95 +54,81 @@ a{color:inherit}
 .titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.12)}
 
 /* NAV: canonical PDA behavior without separators; always reachable and clickable on every page */
-nav{display:flex;gap:18px;margin-top:6px;flex-wrap:nowrap;align-items:center;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;width:100%}
+/* Keep bottom padding so pseudo-elements are visible without scrolling */
+nav{display:flex;gap:18px;margin-top:6px;flex-wrap:nowrap;align-items:center;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;width:100%;padding-bottom:18px}
 
-/* NAV LINKS: stronger warm gradient and bolder reference-matched styling */
+/* NAV LINKS: restore original color and minimal weight; match PDA-style labels */
 nav a, nav a:link, nav a:visited {
   display:inline-block;
   position:relative;
   font-family:'Oswald',sans-serif;
+  color:var(--accent) !important;
   background:transparent;
   text-decoration:none;
   padding:6px 8px;
   border-radius:0;
-  font-weight:800;
+  font-weight:600;
   font-size:13px;
-  letter-spacing:0.09em;
+  letter-spacing:0.08em;
   text-transform:uppercase;
   line-height:1.2;
   flex:0 0 auto;
-  transition:color .10s ease, text-shadow .12s ease, transform .10s ease;
+  transition:color .12s ease, text-shadow .12s ease, transform .10s ease;
   cursor:pointer;
-  background-image: linear-gradient(180deg, #ffd59a 0%, #ffb45a 30%, #f08b2e 60%, #c45a16 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 6px rgba(0,0,0,0.55);
+  -webkit-font-smoothing:antialiased; /* keep crisp letters */
 }
 
+/* light hover pop, keep subtle */
 nav a:hover,
 nav a:focus{
-  transform:translateY(-0.6px) scale(1.01);
-  text-shadow: 0 0 12px rgba(246,160,60,0.28);
+  color:var(--accent-soft) !important;
+  text-shadow:0 0 10px rgba(243,198,121,0.18);
+  transform:translateY(-1px);
   outline:none;
 }
 
-/* APPLY THE HEIGHTENED MATCH: bright near-white core, darker plate, stronger amber bloom */
+/* Minimalistic PDA-style underline: very thin near-white core, tiny soft halo only.
+   Removed heavy plate/dark groove and removed strong amber tint. Kept effect minimal. */
 nav a::before{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-6px;
+  top:calc(100% + 2px); /* just below the anchor box */
   transform:translateX(-50%) scaleX(.98);
-  width:46%;
-  max-width:150px;
-  height:2px;
-  border-radius:2px;
-  background:
-    linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.98) 48%, rgba(255,250,236,0.99) 50%, rgba(255,255,255,0.98) 52%, rgba(255,255,255,0) 100%);
-  box-shadow:
-    0 1px 2px rgba(0,0,0,0.85),
-    0 6px 14px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.36),
-    0 12px 30px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.16);
+  width:40%;
+  max-width:130px;
+  height:1px; /* ultra-thin core */
+  border-radius:1px;
+  background: rgba(255,255,255,0.98); /* near-white */
+  box-shadow: 0 6px 12px rgba(255,255,255,0.04); /* very subtle soft halo */
   opacity:0;
-  transition:opacity .10s ease, transform .14s cubic-bezier(.2,.9,.2,1);
+  transition:opacity .10s ease, transform .12s ease;
   pointer-events:none;
-  z-index:8;
+  z-index:9;
 }
 
+/* soft halo behind the core, very faint and compact */
 nav a::after{
   content:"";
   position:absolute;
   left:50%;
-  bottom:-12px;
+  top:calc(100% + 6px);
   transform:translateX(-50%);
-  width:84%;
-  max-width:320px;
-  height:12px;
-  border-radius:3px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.72) 12%, rgba(0,0,0,0.92) 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.04),
-    0 18px 36px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.36);
-  filter: blur(1.2px);
+  width:60%;
+  max-width:200px;
+  height:10px;
+  border-radius:8px;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 25%, rgba(0,0,0,0) 60%);
+  filter: blur(6px);
   opacity:0;
-  transition:opacity .12s ease;
+  transition:opacity .16s ease;
   pointer-events:none;
-  z-index:4;
+  z-index:3;
 }
 
-nav a:hover::before,
-nav a:focus::before,
-nav a.active::before{
-  opacity:1;
-  transform:translateX(-50%) scaleX(1);
-}
-
-nav a:hover::after,
-nav a:focus::after,
-nav a.active::after{
-  opacity:1;
-}
+/* reveal minimal underline on hover/focus/active */
+nav a:hover::before, nav a:focus::before, nav a.active::before{ opacity:1; transform:translateX(-50%) scaleX(1); }
+nav a:hover::after, nav a:focus::after, nav a.active::after{ opacity:1; }
 
 nav a:focus-visible{ outline:2px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12); outline-offset:4px }
 
@@ -161,6 +147,7 @@ main{display:block;flex:1;gap:18px}
   padding:0;
 }
 
+/* remove duplicate page title text from the main content area */
 .content-panel .page-title{display:none !important}
 
 .card img, .wrap img { display:block; width:100%; height:auto; max-height:480px; object-fit:cover; border-radius:8px; box-shadow:none; background-color: rgba(0,0,0,0.04); }
