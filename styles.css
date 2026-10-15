@@ -264,6 +264,40 @@ html{scroll-behavior:smooth}
 .swatch{display:inline-block;width:12px;height:12px}
 .relations-note{margin-top:10px !important;color:var(--pda-text-dim);font-size:13px}
 
+/* HOME PAGE */
+.content-panel.home{display:grid;gap:24px;color:var(--pda-text);font-size:15px;line-height:1.65}
+.home p{margin:0}
+
+.home-hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:32px;align-items:center;padding:28px 32px;background:radial-gradient(ellipse 340px 260px at 112px 50%,rgba(243,143,1,.09),rgba(243,143,1,0) 70%),var(--pda-panel);border:1px solid var(--pda-edge);box-shadow:inset 0 1px 0 var(--pda-panel-hi)}
+.home-logo{display:block;width:160px;height:160px;border:1px solid #3a2a12;box-shadow:0 0 0 4px #140e06,0 0 0 5px #3e280a,0 0 28px rgba(243,143,1,.22)}
+.home-intro h2{margin:0;color:#e3dfcd;font-family:'Oswald',sans-serif;font-weight:600;font-size:34px;line-height:40px}
+.home .home-sub{margin:2px 0 12px;padding-bottom:12px;border-bottom:2px solid #24211e;color:#f38f01;font-size:17px;line-height:22px}
+.home-intro > p:not(.home-sub):not(.discord-live){max-width:640px;color:#9fa299}
+
+.home-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.pda-button{display:inline-flex;align-items:center;gap:10px;padding:11px 22px;border:1px solid var(--pda-edge);background:#26231f;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);color:var(--pda-text);font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;line-height:20px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:background-color .15s ease,color .15s ease,box-shadow .15s ease}
+.pda-button:hover,.pda-button:focus-visible{background-color:#2f2b26;color:#e3dfcd;outline:none}
+.pda-button.primary{padding-left:26px;padding-right:26px;border-color:transparent;background:linear-gradient(#ef8e01,#ef8e01) left / 5px 100% no-repeat,linear-gradient(#ef8e01,#ef8e01) right / 5px 100% no-repeat,#140e06;box-shadow:inset 0 1px 0 #3e280a,inset 0 -1px 0 #4d3009,0 0 4px rgba(239,142,1,.16);color:#e3dfcd}
+.pda-button.primary:hover,.pda-button.primary:focus-visible{background-color:#22170a;box-shadow:inset 0 1px 0 #5a3a0c,inset 0 -1px 0 #6a420c,0 0 10px rgba(239,142,1,.28)}
+.pda-button svg{flex:none}
+
+.home .discord-live{display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-size:13px;line-height:16px;letter-spacing:.08em;text-transform:uppercase}
+.discord-live[hidden]{display:none}
+.discord-live b{color:var(--pda-text);font-weight:600}
+.discord-live span{color:var(--pda-edge)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#6fbf5f;box-shadow:0 0 6px rgba(111,191,95,.7)}
+
+.home-steps{margin-bottom:0}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:14px;padding:16px 20px;border-top:1px solid rgba(47,45,43,.6)}
+.steps li:first-child{border-top:0}
+.step-num{color:var(--accent);font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;line-height:24px;letter-spacing:.04em}
+.steps h3{margin:0 0 2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:17px;line-height:24px;letter-spacing:.04em}
+.steps h3 a{color:#e3dfcd;text-decoration:none}
+.steps h3 a:hover{color:#f38f01}
+.steps p{color:#9fa299}
+.steps p a{color:var(--accent-soft)}
+
 .notfound{margin:0;color:var(--pda-text);font-size:15px;line-height:1.65}
 .notfound a{color:var(--accent-soft)}
 
@@ -292,6 +326,11 @@ footer.pda-bottom{
 }
 
 @media (max-width:720px){
+  .home-hero{grid-template-columns:minmax(0,1fr);gap:20px;padding:22px 16px;justify-items:start}
+  .home-logo{width:112px;height:112px}
+  .home-intro h2{font-size:28px;line-height:34px}
+  .home-actions .pda-button{flex:1 1 100%;justify-content:center}
+  .steps li{grid-template-columns:34px minmax(0,1fr);column-gap:10px;padding:14px}
   .rule{grid-template-columns:34px minmax(0,1fr);column-gap:10px;padding:12px 14px}
   .rule-section h2,.section-text{padding-left:14px;padding-right:14px}
   .callout{padding:16px 20px 18px}
@@ -304,6 +343,6 @@ footer.pda-bottom{
 }
 
 @media (prefers-reduced-motion:reduce){
-  nav a, nav a::before, nav a::after, .rules-index a{transition:none}
+  nav a, nav a::before, nav a::after, .rules-index a, .pda-button{transition:none}
   html{scroll-behavior:auto}
 }
