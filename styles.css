@@ -15,6 +15,10 @@
   --line: rgba(227,168,90,0.10);
   --inner-line: rgba(255,255,255,0.02);
   --surface: rgba(255,255,255,0.012);
+  /* derived for nav glow (RGB) */
+  --accent-r: 227;
+  --accent-g: 168;
+  --accent-b: 90;
 }
 
 *{box-sizing:border-box}
@@ -47,10 +51,10 @@ a{color:inherit}
 
 .titlebar{background:linear-gradient(180deg,#0b0a08,#15120f);padding:14px;border-radius:0;border-bottom:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:6px;overflow:visible}
 .crumbs{color:var(--muted);font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase}
-.titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.15)}
+.titlebar h1{margin:0;color:var(--accent-soft);font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;font-size:22px;text-shadow:0 0 6px rgba(227,168,90,0.12)}
 
 /* NAV: canonical PDA behavior without separators; always reachable and clickable on every page */
-nav{display:flex;gap:18px;margin-top:6px;flex-wrap:nowrap;align-items:center;overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
+nav{display:flex;gap:18px;margin-top:6px;flex-wrap:nowrap;align-items:center;overflow-x:auto;overflow-y:visible;-webkit-overflow-scrolling:touch;width:100%}
 nav a, nav a:link, nav a:visited {
   display:inline-block;
   position:relative;
@@ -84,24 +88,58 @@ nav a:focus{
   outline:none;
 }
 
-/* Underline / light bar: centered under the link text; appears on hover and persists for .active */
+/* Underline / light bar: centered under the link text; appears on hover and persists for .active
+   Reworked to add two layers: a sharp thin strip (::before) and a diffused halo (::after).
+   Kept sizes and timings conservative to preserve current look. */
 nav a::before{
   content:"";
   position:absolute;
   left:50%;
   bottom:-14px;
-  transform:translateX(-50%);
-  width:0%;
-  height:8px;
-  background:linear-gradient(90deg, rgba(243,198,121,0.0), rgba(243,198,121,0.36), rgba(243,198,121,0.0));
-  box-shadow:0 10px 24px rgba(243,198,121,0.20);
+  transform:translateX(-50%) scaleX(.95);
+  width:56%; /* default width when visible */
+  max-width:180px;
+  height:6px; /* sharp strip thickness */
+  background:linear-gradient(90deg,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 0%,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.95) 50%,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.0) 100%);
+  box-shadow:0 6px 18px rgba(0,0,0,0.45), 0 10px 28px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12);
   border-radius:4px;
-  transition:width .14s ease, opacity .14s ease;
+  transition:opacity .18s ease, transform .18s ease;
   opacity:0;
   pointer-events:none;
+  z-index:2;
 }
-nav a:hover::before, nav a:focus::before{ width:56%; opacity:1; }
-nav a.active::before{ width:56%; opacity:1; }
+
+nav a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-20px;
+  transform:translateX(-50%);
+  width:80%;
+  max-width:260px;
+  height:18px; /* diffused halo height */
+  border-radius:14px;
+  background:radial-gradient(ellipse at center,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.30) 0%,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12) 20%,
+    rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.02) 40%,
+    rgba(0,0,0,0) 70%);
+  filter:blur(6px);
+  opacity:0;
+  transition:opacity .20s ease;
+  pointer-events:none;
+  z-index:1;
+}
+
+/* show/animate the effect on hover, focus, and when link has .active */
+nav a:hover::before, nav a:focus::before, nav a.active::before{ opacity:1; transform:translateX(-50%) scaleX(1); }
+nav a:hover::after, nav a:focus::after, nav a.active::after{ opacity:1; }
+
+/* Accessibility: keyboard outlines */
+nav a:focus-visible{ outline:2px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.10); outline-offset:4px }
 
 main{display:block;flex:1;gap:18px}
 .leftcol,.rightcol{display:none}
