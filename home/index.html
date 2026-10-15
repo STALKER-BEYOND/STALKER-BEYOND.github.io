@@ -29,11 +29,12 @@
       --maxw:1100px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--accent-soft);font-family:'Rubik',system-ui,-apple-system,'Segoe UI',sans-serif}
+    /* Use a single flat background color to remove visible horizontal banding */
+    html,body{height:100%;margin:0;background:var(--bg-1);color:var(--accent-soft);font-family:'Rubik',system-ui,-apple-system,'Segoe UI',sans-serif}
 
     .stage{min-height:100vh;padding:32px 28px;display:flex;align-items:flex-start;justify-content:center}
 
-    /* Use a single subtle surface color to remove visible horizontal gradient seams */
+    /* Use a single subtle surface color to avoid horizontal banding — no strong inner gradients */
     .wrap{width:100%;max-width:var(--maxw);min-height:calc(100vh - 96px);background:rgba(255,255,255,0.012);border-radius:12px;padding:28px;border:1px solid var(--line);box-shadow:0 6px 20px var(--shadow-wrap);display:flex;flex-direction:column;gap:18px}
 
     .titlebar{background:linear-gradient(180deg,var(--panel),var(--panel-2));padding:14px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:6px}
