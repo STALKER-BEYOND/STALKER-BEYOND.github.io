@@ -91,9 +91,14 @@
     (function(){var n=document.querySelector('nav'),a=n&&n.querySelector('a.active');if(!a)return;function c(){n.scrollLeft=a.offsetLeft-(n.clientWidth-a.offsetWidth)/2;}c();if(document.fonts)document.fonts.ready.then(c);})();
     // live Discord member/online counts from the public invite (stays hidden if it can't load)
     (function(){var box=document.querySelector('.discord-live');if(!box||!window.fetch)return;fetch('https://discord.com/api/v10/invites/SX2zFKFpmN?with_counts=true').then(function(r){return r.ok?r.json():null;}).then(function(d){if(!d||!d.approximate_member_count)return;box.querySelector('[data-online]').textContent=d.approximate_presence_count.toLocaleString();box.querySelector('[data-members]').textContent=d.approximate_member_count.toLocaleString();box.hidden=false;}).catch(function(){});})();
-    // cinematic header: the background loop pauses for reduced-motion users and while the trailer plays
+    // cinematic header: the background loop plays for everyone and only pauses while the trailer plays
     (function(){var bg=document.querySelector('.cine-bg'),dlg=document.querySelector('.trailer-dialog'),btn=document.querySelector('.cine-play');if(!bg)return;
-      var still=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(still){bg.removeAttribute('autoplay');bg.pause();}
+      function loop(){if(dlg&&dlg.open)return;var p=bg.play();if(p&&p.catch)p.catch(function(){});}
+      // browsers that hold back autoplay (battery saver, data saver, site settings) get another try on the first interaction
+      function kick(){if(bg.paused)loop();}
+      var ev=['pointerdown','touchstart','keydown','scroll'];for(var i=0;i<ev.length;i++)window.addEventListener(ev[i],kick,{passive:true});
+      document.addEventListener('visibilitychange',function(){if(!document.hidden)kick();});
+      loop();
       if(!dlg||!btn||!dlg.showModal){if(btn)btn.addEventListener('click',function(){location.href='../assets/video/trailer.mp4';});return;}
       var v=dlg.querySelector('video');
       var phone=window.matchMedia&&window.matchMedia('(max-width: 720px), (pointer: coarse)').matches;
@@ -105,7 +110,7 @@
       dlg.addEventListener('close',function(){if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(function(){});});
       dlg.querySelector('.trailer-close').addEventListener('click',function(){dlg.close();});
       dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close();});
-      dlg.addEventListener('close',function(){v.pause();if(!still){var p=bg.play();if(p&&p.catch)p.catch(function(){});}btn.focus();});
+      dlg.addEventListener('close',function(){v.pause();loop();btn.focus();});
     })();
   </script>
 </body>
