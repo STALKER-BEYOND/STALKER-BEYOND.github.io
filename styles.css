@@ -325,13 +325,17 @@ button.pda-button{cursor:pointer}
 .home-steps-title,.apply-section-title{margin:0 0 10px;color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;line-height:16px;letter-spacing:.1em;text-transform:uppercase}
 .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .step{position:relative;display:flex;align-items:center;gap:18px;min-height:92px;height:100%;padding:18px 52px 18px 26px;background:var(--pda-panel);border:1px solid var(--pda-edge);box-shadow:inset 0 1px 0 var(--pda-panel-hi);color:#e3dfcd;text-decoration:none;transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease}
-.step::after{content:"";position:absolute;right:24px;top:50%;width:9px;height:9px;margin-top:-5px;border-top:2px solid var(--pda-text-dim);border-right:2px solid var(--pda-text-dim);transform:rotate(45deg);transition:border-color .15s ease}
+a.step::after{content:"";position:absolute;right:24px;top:50%;width:9px;height:9px;margin-top:-5px;border-top:2px solid var(--pda-text-dim);border-right:2px solid var(--pda-text-dim);transform:rotate(45deg);transition:border-color .15s ease}
 .step-num{color:#f38f01;font-family:'Oswald',sans-serif;font-weight:600;font-size:30px;line-height:1}
 .step-label{font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;line-height:26px}
 .step-icon{flex:none;margin-left:auto;color:var(--pda-text-dim)}
-.step:hover,.step:focus-visible{outline:none;border-color:#3e280a;background:linear-gradient(#ef8e01,#ef8e01) left / 5px 100% no-repeat,linear-gradient(#ef8e01,#ef8e01) right / 5px 100% no-repeat,#140e06;box-shadow:inset 0 1px 0 #3e280a,inset 0 -1px 0 #4d3009,0 0 6px rgba(239,142,1,.18)}
-.step:hover::after,.step:focus-visible::after{border-color:#f38f01}
-.step:hover .step-icon,.step:focus-visible .step-icon{color:#e3dfcd}
+a.step:hover,a.step:focus-visible{outline:none;border-color:#3e280a;background:linear-gradient(#ef8e01,#ef8e01) left / 5px 100% no-repeat,linear-gradient(#ef8e01,#ef8e01) right / 5px 100% no-repeat,#140e06;box-shadow:inset 0 1px 0 #3e280a,inset 0 -1px 0 #4d3009,0 0 6px rgba(239,142,1,.18)}
+a.step:hover::after,a.step:focus-visible::after{border-color:#f38f01}
+a.step:hover .step-icon,a.step:focus-visible .step-icon{color:#e3dfcd}
+/* a tile that isn't a link itself has no arrow; words inside it can be links, amber and glowing when lit */
+div.step{padding-right:26px}
+.step-link{color:#f38f01;text-decoration:none;transition:color .15s ease,text-shadow .15s ease}
+.step-link:hover,.step-link:focus-visible{outline:none;color:#f3c679;text-shadow:0 0 10px rgba(239,142,1,.65)}
 
 /* APPLY NOW PAGE: how-to steps + one card per application type */
 .content-panel.apply{display:grid;gap:28px;color:var(--pda-text);font-size:15px;line-height:1.65}
@@ -429,6 +433,6 @@ footer.pda-bottom{
 }
 
 @media (prefers-reduced-motion:reduce){
-  nav a, nav a::before, nav a::after, .rules-index a, .pda-button, .step, .step::after{transition:none}
+  nav a, nav a::before, nav a::after, .rules-index a, .pda-button, .step, .step::after, .step-link{transition:none}
   html{scroll-behavior:auto}
 }
