@@ -49,7 +49,7 @@
           <ol class="steps">
             <li><div class="step"><span class="step-num">01</span><span class="step-label">Read the <a class="step-link" href="../rules/">Rules</a> &amp; <a class="step-link" href="../lore/">Lore</a></span></div></li>
             <li><a class="step" href="#applications"><span class="step-num">02</span><span class="step-label">Submit Your Application</span></a></li>
-            <li><a class="step" href="discord://-/channels/1155358407113592872/1178439020141871144"><span class="step-num">03</span><span class="step-label">Open a Ticket on Discord</span></a></li>
+            <li><a class="step" href="https://discord.com/channels/1155358407113592872/1178439020141871144" data-app-href="discord://-/channels/1155358407113592872/1178439020141871144"><span class="step-num">03</span><span class="step-label">Open a Ticket on Discord</span></a></li>
           </ol>
           <p class="apply-note">Once you've submitted an application, open a ticket in our Discord to let staff know it's ready for review.</p>
         </section>
@@ -101,7 +101,7 @@
                 <span class="app-status">Coming Soon</span>
               </header>
               <div class="app-body">
-                <p>For whitelisted players who want to run a faction for a limited time.</p>
+                <p>For whitelisted players who want to bring a new faction into the Zone for a limited time.</p>
                 <ul class="app-needs">
                   <li>An approved whitelist</li>
                 </ul>
@@ -120,6 +120,24 @@
   <script>
     // keep the current tab visible when the tab strip scrolls (narrow screens)
     (function(){var n=document.querySelector('nav'),a=n&&n.querySelector('a.active');if(!a)return;function c(){n.scrollLeft=a.offsetLeft-(n.clientWidth-a.offsetWidth)/2;}c();if(document.fonts)document.fonts.ready.then(c);})();
+    // ticket step: open the Discord app, and fall back to Discord in the browser if no app takes the link
+    (function(){var a=document.querySelector('a[data-app-href]');if(!a)return;
+      // phones: the https link already opens the Discord app when it's installed
+      if(window.matchMedia&&window.matchMedia('(pointer: coarse)').matches)return;
+      a.addEventListener('click',function(e){
+        if(e.button||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
+        e.preventDefault();
+        var t,f;
+        function stop(){clearTimeout(t);window.removeEventListener('blur',stop);document.removeEventListener('visibilitychange',hid);}
+        function hid(){if(document.hidden)stop();}
+        // the app (or the browser's "Open Discord?" prompt) takes focus away from the page
+        window.addEventListener('blur',stop);document.addEventListener('visibilitychange',hid);
+        t=setTimeout(function(){stop();location.href=a.href;},1500);
+        // Firefox shows an error page for an unknown scheme, so it tries the app from a hidden frame
+        if(/firefox/i.test(navigator.userAgent)){f=document.createElement('iframe');f.hidden=true;document.body.appendChild(f);f.src=a.getAttribute('data-app-href');}
+        else location.href=a.getAttribute('data-app-href');
+      });
+    })();
   </script>
 </body>
 </html>
