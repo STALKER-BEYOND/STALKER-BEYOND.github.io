@@ -11,7 +11,10 @@ Files included:
 - 404.html (not-found page)
 - styles.css (shared styles)
 - home/index.html (canonical home)
-- media/index.html
+- media/index.html (featured reel, grid and viewer, built from media/media.json)
+- media/media.json (media list: title, category, credit, date, featured)
+- assets/media/ (compressed media made by tools/build_media.py)
+- tools/build_media.py (put originals in media-src/, run `python tools/build_media.py`)
 - lore/index.html
 - rules/index.html
 - warfare/index.html

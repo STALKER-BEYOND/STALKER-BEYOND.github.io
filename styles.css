@@ -365,6 +365,100 @@ div.step{padding-right:26px}
 .app-card.open .app-needs{color:var(--pda-text)}
 .app-card.open .app-needs li::before{background:#ef8e01}
 
+/* MEDIA PAGE: featured reel, mixed-size grid and a full-screen viewer, built from media/media.json */
+.content-panel.media{display:grid;gap:22px;color:var(--pda-text)}
+.media-empty{margin:0;color:var(--pda-text-dim);font-size:15px}
+
+/* reel: crossfading slides under the home page's scanline shade, letterboxed like a film */
+.reel{position:relative;height:clamp(380px,64vh,700px);overflow:hidden;background:#0c0a09;border:1px solid var(--pda-edge);box-shadow:inset 0 1px 0 var(--pda-panel-hi)}
+.reel[hidden],.media-bar[hidden]{display:none}
+.reel::before,.reel::after{content:"";position:absolute;left:0;right:0;z-index:3;height:22px;background:#000;pointer-events:none}
+.reel::before{top:0}
+.reel::after{bottom:0}
+.reel-stage{position:absolute;inset:0}
+.reel-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.reel-slide.on{opacity:1}
+.pda-screen .reel-media{position:absolute;inset:0;width:100%;height:100%;max-height:none;border-radius:0;object-fit:cover;filter:saturate(.96) contrast(1.02);transform-origin:50% 50%}
+.reel-media.kb{animation:kb0 9s ease-out forwards}
+.reel-media.kb.kb-1{animation-name:kb1}
+.reel-media.kb.kb-2{animation-name:kb2}
+@keyframes kb0{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.16) translate(-2.5%,-1.5%)}}
+@keyframes kb1{from{transform:scale(1.16) translate(2.5%,1%)}to{transform:scale(1.04) translate(0,0)}}
+@keyframes kb2{from{transform:scale(1.06) translate(-2%,1.5%)}to{transform:scale(1.15) translate(1.5%,-1%)}}
+.reel-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  repeating-linear-gradient(180deg,rgba(0,0,0,.035) 0 1px,transparent 1px 3px),
+  linear-gradient(90deg,rgba(12,10,9,.6) 0%,rgba(12,10,9,.25) 34%,rgba(12,10,9,0) 60%),
+  linear-gradient(0deg,rgba(12,10,9,.7) 0%,rgba(12,10,9,0) 38%),
+  radial-gradient(ellipse at 50% 45%,transparent 62%,rgba(0,0,0,.25) 100%)}
+.reel-info{position:absolute;left:0;bottom:22px;z-index:2;max-width:680px;padding:0 44px 34px}
+.reel-kicker{display:flex;gap:12px;margin:0 0 6px;color:#f38f01;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;line-height:16px;letter-spacing:.14em;text-transform:uppercase}
+.reel-num{color:var(--pda-text-dim)}
+.reel-title:empty,.viewer-title[hidden],.viewer-caption[hidden],.viewer-meta[hidden]{display:none}
+.reel-title{margin:0 0 18px;color:#e3dfcd;font-family:'Oswald',sans-serif;font-weight:600;font-size:40px;line-height:46px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.reel-ticks{position:absolute;right:44px;bottom:56px;z-index:2;display:flex;gap:6px}
+.reel-tick{position:relative;width:34px;height:14px;padding:0;border:0;background:none;cursor:pointer}
+.reel-tick::before,.reel-tick::after{content:"";position:absolute;left:0;right:0;top:6px;height:2px}
+.reel-tick::before{background:rgba(var(--pda-bar-rgb),.25)}
+.reel-tick::after{background:var(--pda-bar);box-shadow:0 0 6px rgba(var(--pda-bar-rgb),.6);transform:scaleX(0);transform-origin:left}
+.reel-tick.on::after{animation:tick 7s linear forwards}
+.reel-ticks.held .reel-tick.on::after{animation-play-state:paused}
+.reel-tick:hover::before,.reel-tick:focus-visible::before{background:rgba(var(--pda-bar-rgb),.5)}
+.reel-tick:focus-visible{outline:1px solid var(--pda-text-dim);outline-offset:2px}
+@keyframes tick{to{transform:scaleX(1)}}
+
+/* filter tabs: PDA tab treatment in miniature */
+.media-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;border-bottom:1px solid var(--pda-edge)}
+.media-tabs{display:flex;flex-wrap:wrap}
+.media-tab{position:relative;padding:10px 18px 12px;border:0;background:none;color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;line-height:18px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:color .15s ease}
+.media-tab::after{content:"";position:absolute;left:18px;right:18px;bottom:-1px;height:2px;background:var(--pda-bar);box-shadow:0 -2px 10px rgba(var(--pda-bar-rgb),.45);opacity:0;transition:opacity .15s ease}
+.media-tab:hover,.media-tab:focus-visible{color:var(--pda-text);outline:none}
+.media-tab:focus-visible::after{opacity:.4}
+.media-tab[aria-selected="true"]{color:#e3dfcd}
+.media-tab[aria-selected="true"]::after{opacity:1}
+.media-count{margin:0 0 12px;color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-size:12px;line-height:16px;letter-spacing:.1em;text-transform:uppercase}
+
+/* grid: tightly packed tiles that fade up as they scroll in and light up like a selected PDA entry */
+.media-grid{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;transition:opacity .22s ease}
+.media-grid.swap{opacity:0}
+.tile{position:relative;flex:none;width:260px;height:260px;opacity:0;transform:translateY(22px);transition:opacity .8s ease var(--d,0ms),transform 1s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+.tile.in{opacity:1;transform:none}
+.tile-btn{position:absolute;inset:0;display:block;width:100%;height:100%;padding:0;overflow:hidden;border:1px solid var(--pda-edge);background:#0c0a09;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.pda-screen .tile-btn img,.tile-preview{position:absolute;inset:0;width:100%;height:100%;max-height:none;border-radius:0;object-fit:cover;filter:saturate(.94) brightness(.92);transition:transform 1.4s cubic-bezier(.2,.7,.2,1),filter .5s ease}
+.tile-preview{opacity:0;transition:opacity .4s ease}
+.tile-preview.on{opacity:1;filter:none}
+.tile-btn::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  linear-gradient(0deg,rgba(12,10,9,.55) 0%,rgba(12,10,9,0) 40%)}
+.tile-btn::after{content:"";position:absolute;inset:-1px;z-index:2;pointer-events:none;opacity:0;transition:opacity .25s ease;
+  background:linear-gradient(#ef8e01,#ef8e01) left / 4px 100% no-repeat,linear-gradient(#ef8e01,#ef8e01) right / 4px 100% no-repeat;
+  box-shadow:inset 0 0 0 1px #4d3009,inset 0 0 24px rgba(239,142,1,.18)}
+.tile-btn:hover img,.tile-btn:focus-visible img{transform:scale(1.05);filter:none}
+.tile-btn:hover::after,.tile-btn:focus-visible::after{opacity:1}
+.tile-btn:focus-visible{outline:none}
+.tile-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;display:grid;gap:2px;padding:12px 16px 13px;transform:translateY(6px);opacity:.0;transition:transform .35s ease,opacity .35s ease}
+.tile-btn:hover .tile-cap,.tile-btn:focus-visible .tile-cap{transform:none;opacity:1}
+.tile-title{color:#e3dfcd;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;line-height:19px;letter-spacing:.04em;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.tile-meta{color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-size:12px;line-height:15px;letter-spacing:.08em;text-transform:uppercase}
+.tile-badge{position:absolute;top:10px;right:10px;z-index:2;display:inline-flex;align-items:center;gap:6px;padding:4px 8px;background:rgba(12,10,9,.78);border:1px solid rgba(255,255,255,.08);color:#e3dfcd;font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;line-height:14px;letter-spacing:.06em}
+.tile-badge svg{color:#f38f01}
+@media (hover:none){.tile-cap{transform:none;opacity:1}}
+
+/* viewer: black, letterboxed PDA frame filling the screen */
+.viewer{width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--pda-text);overflow:hidden}
+.viewer::backdrop{background:rgba(5,4,3,.95)}
+.viewer-frame{position:absolute;inset:24px;display:flex;flex-direction:column;background:#000;border:1px solid var(--pda-edge);box-shadow:inset 0 1px 0 var(--pda-panel-hi),0 20px 60px rgba(0,0,0,.6)}
+.viewer-count{color:#f38f01}
+.viewer-stage{position:relative;flex:1;min-height:0;overflow:hidden;background:#000}
+.pda-screen .viewer-media{position:absolute;inset:0;width:100%;height:100%;max-height:none;border:0;border-radius:0;background:#000;object-fit:contain;opacity:0;transform:translateX(var(--from,0));transition:opacity .4s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
+.pda-screen .viewer-media.on{opacity:1;transform:none}
+.pda-screen .viewer-media.off{opacity:0;transform:translateX(var(--to,0))}
+.viewer-nav{position:absolute;top:0;bottom:56px;z-index:2;display:flex;align-items:center;justify-content:center;width:84px;padding:0;border:0;color:#e3dfcd;cursor:pointer;opacity:.35;transition:opacity .2s ease}
+.viewer-nav.prev{left:0;background:linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0))}
+.viewer-nav.next{right:0;background:linear-gradient(270deg,rgba(0,0,0,.45),rgba(0,0,0,0))}
+.viewer-nav:hover,.viewer-nav:focus-visible{opacity:1;outline:none;color:#f3c679}
+.viewer-caption{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 18px;padding:12px 16px 14px;border-top:1px solid var(--pda-edge);background:var(--pda-panel)}
+.viewer-title{margin:0;color:#e3dfcd;font-family:'Oswald',sans-serif;font-weight:600;font-size:18px;line-height:24px;letter-spacing:.04em}
+.viewer-meta{margin:0;color:var(--pda-text-dim);font-family:'Oswald',sans-serif;font-size:13px;line-height:18px;letter-spacing:.08em;text-transform:uppercase}
+
 .notfound{margin:0;color:var(--pda-text);font-size:15px;line-height:1.65}
 .notfound a{color:var(--accent-soft)}
 
@@ -411,6 +505,19 @@ footer.pda-bottom{
   .criteria li{padding:12px 14px 12px 46px}
   .criteria li::before{left:16px;top:17px}
   .pk-policy{padding:14px 14px 16px 18px}
+  .reel{height:clamp(320px,58vh,460px)}
+  .reel::before,.reel::after{height:12px}
+  .reel-info{bottom:12px;padding:0 16px 34px}
+  .reel-title{margin-bottom:14px;font-size:28px;line-height:34px}
+  .reel-ticks{right:16px;bottom:20px;gap:4px}
+  .reel-tick{width:20px}
+  .media-tab{padding:10px 12px 12px}
+  .media-tab::after{left:12px;right:12px}
+  .media-grid{gap:4px}
+  .tile-cap{padding:10px 10px 11px}
+  .tile-title{font-size:13px;line-height:16px}
+  .viewer-frame{inset:0;border:0}
+  .viewer-nav{width:52px}
   .app-head{padding:12px 14px}
   .app-body{padding:14px 14px 18px}
   .app-foot{padding:0 14px 16px}
@@ -435,4 +542,8 @@ footer.pda-bottom{
 @media (prefers-reduced-motion:reduce){
   nav a, nav a::before, nav a::after, .rules-index a, .pda-button, .step, .step::after, .step-link{transition:none}
   html{scroll-behavior:auto}
+  /* media page keeps its crossfades but drops the pans, zooms and slides */
+  .reel-media.kb{animation:none}
+  .tile{transform:none;transition:opacity .4s ease}
+  .pda-screen .tile-btn img,.pda-screen .viewer-media,.pda-screen .viewer-media.off{transform:none}
 }

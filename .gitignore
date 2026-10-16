@@ -147,3 +147,6 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Original media for tools/build_media.py (only the compressed copies in assets/media are published)
+media-src/
